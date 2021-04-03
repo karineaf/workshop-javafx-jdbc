@@ -44,7 +44,6 @@ public class DepartmentController implements Initializable {
 
     private ObservableList<Department> observableList;
 
-
     @FXML
     public void onBtnNewAction(ActionEvent event){
         Stage parentStage = Utils.currentStage(event);
@@ -92,6 +91,7 @@ public class DepartmentController implements Initializable {
         }
         catch (IOException e) {
             Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), Alert.AlertType.ERROR);
+            System.out.println(e.getMessage());
         }
     }
 }
