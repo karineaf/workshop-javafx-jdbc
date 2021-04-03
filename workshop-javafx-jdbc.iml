@@ -9,6 +9,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="javafx-jmods-11.0" level="application" />
     <orderEntry type="library" name="lib" level="project" />
-    <orderEntry type="library" name="mysql-connector-java-8.0.23" level="application" />
+    <orderEntry type="library" name="mysql-connector-java-8.0.23" level="project" />
+    <orderEntry type="library" name="mysql-connector-java-8.0.231" level="project" />
   </component>
 </module>
