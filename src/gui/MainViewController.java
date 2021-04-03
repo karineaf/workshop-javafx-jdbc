@@ -12,6 +12,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.transform.Scale;
+import model.entities.DepartmentService;
 
 import java.io.IOException;
 import java.net.URL;
@@ -36,6 +37,7 @@ public class MainViewController implements Initializable {
     @FXML
     public void onMenuItemDepartmentAction(){
         loadView("/gui/utils/DepartmentList.fxml");
+        loadView2("/gui/utils/DepartmentList.fxml");
     }
 
     @FXML
@@ -48,7 +50,7 @@ public class MainViewController implements Initializable {
 
     }
 
-    private void loadView(String absolutename){
+    private synchronized void loadView(String absolutename){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(absolutename));
         try {
             VBox newVBox = fxmlLoader.load();
@@ -63,4 +65,26 @@ public class MainViewController implements Initializable {
             Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), Alert.AlertType.ERROR);
         }
     }
+
+    private synchronized void loadView2(String absolutename){
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(absolutename));
+        try {
+            VBox newVBox = fxmlLoader.load();
+            Scene mainScene = Main.getMainScene();
+            VBox mainVBox = (VBox) ((ScrollPane) mainScene.getRoot()).getContent();
+            Node mainMenu = mainVBox.getChildren().get(0);
+            //limpa todos os filhos do mainVBox
+            mainVBox.getChildren().clear();
+            mainVBox.getChildren().add(mainMenu);
+            mainVBox.getChildren().addAll(newVBox.getChildren());
+
+            DepartmentController controller = fxmlLoader.getController();
+            controller.setDepartmentService(new DepartmentService());
+            controller.updateTableView();
+        } catch (IOException e) {
+            Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+
 }
