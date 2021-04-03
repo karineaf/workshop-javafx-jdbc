@@ -1,6 +1,7 @@
-package gui;
+package gui.controllers;
 
 import application.Main;
+import gui.controllers.DepartmentController;
 import gui.utils.Alerts;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
