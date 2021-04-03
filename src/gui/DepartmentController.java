@@ -19,7 +19,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entities.Department;
-import model.entities.DepartmentService;
+import model.services.DepartmentService;
 
 import java.io.IOException;
 import java.net.URL;
@@ -84,6 +84,7 @@ public class DepartmentController implements Initializable {
 
             DepartmentFormController controller = loader.getController();
             controller.setDepartment(department);
+            controller.setDepartmentService(new DepartmentService());
             controller.updateFormData();
 
             Stage dialogStage = new Stage();
