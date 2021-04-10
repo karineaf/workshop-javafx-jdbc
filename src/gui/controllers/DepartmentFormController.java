@@ -62,7 +62,7 @@ public class DepartmentFormController implements Initializable {
 
         try {
             department = getFormData();
-            departmentService.sarOrUpdate(department);
+            departmentService.saveOrUpdate(department);
             notifyDataChangeListener();
             Utils.currentStage(event).close();
         } catch (DbException e){

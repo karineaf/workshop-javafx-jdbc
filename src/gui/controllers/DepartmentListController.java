@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class DepartmentController implements Initializable, DataChangeListener {
+public class DepartmentListController implements Initializable, DataChangeListener {
 
     private DepartmentService service;
 

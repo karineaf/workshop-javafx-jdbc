@@ -14,7 +14,7 @@ public class DepartmentService {
         return dao.findAll();
     }
 
-    public void sarOrUpdate(Department department){
+    public void saveOrUpdate(Department department){
         if (department.getId() == null)
             dao.insert(department);
         else
