@@ -1,6 +1,7 @@
 package gui.controllers;
 
 import java.net.URL;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
@@ -118,14 +119,31 @@ public class SellerFormController implements Initializable {
 
         obj.setId(Utils.tryParseToInt(txtId.getText()));
 
-        if (txtName.getText() == null || txtName.getText().trim().equals("")) {
+        if (txtName.getText() == null || txtName.getText().trim().equals(""))
             exception.addError("name", "Field can't be empty");
-        }
         obj.setName(txtName.getText());
 
-        if (exception.getErrors().size() > 0) {
-            throw exception;
+        if (txtEmail.getText() == null || txtEmail.getText().trim().equals(""))
+            exception.addError("email", "Field can't be empty");
+        obj.setEmail(txtEmail.getText());
+
+
+        if(dpBirthDate.getValue() == null)
+            exception.addError("birthDate", "Field can't be empty");
+        else {
+            //converte data escolhida no horario do computador do usuario para o instante(data que independe de zona)
+            Instant instant = Instant.from(dpBirthDate.getValue().atStartOfDay(ZoneId.systemDefault()));
+            obj.setBirthDate(Date.from(instant));
         }
+
+        if (txtBaseSalary.getText() == null || txtBaseSalary.getText().trim().equals(""))
+            exception.addError("baseSalary", "Field can't be empty");
+        obj.setBaseSalary(Utils.tryParseToDouble(txtBaseSalary.getText()));
+
+        obj.setDepartment(cbDepartment.getValue());
+
+        if (exception.getErrors().size() > 0)
+            throw exception;
 
         return obj;
     }
@@ -178,11 +196,18 @@ public class SellerFormController implements Initializable {
     private void setErrorMessages(Map<String, String> errors) {
         Set<String> fields = errors.keySet();
 
-        if (fields.contains("name")) {
+        if (fields.contains("name"))
             labelErrorName.setText(errors.get("name"));
-        }
-    }
 
+        if (fields.contains("email"))
+            labelErrorEmail.setText(errors.get("email"));
+
+        if (fields.contains("birthDate"))
+            labelErrorBirthDate.setText(errors.get("birthDate"));
+
+        if (fields.contains("baseSalary"))
+            labelErrorBaseSalary.setText(errors.get("baseSalary"));
+    }
 
     private void initializeComboBoxDepartment() {
         Callback<ListView<Department>, ListCell<Department>> factory = lv -> new ListCell<Department>() {
